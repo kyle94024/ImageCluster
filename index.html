@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add any additional meta tags, link tags, or stylesheets here -->
+</head>
+<body>
+    <h1>Hello, world!</h1>
+    <!--h1>My name is Furina.</h1-->
+    <h1>DBScan interface extension</h1>
+    <form id = "imgform" onsubmit = "handleSubmit(event)">
+        <input type="file" id="myFile" name="filename" onchange="previewImage()">
+        <label for="numberInput">Epsilon:</label>
+        <input type="number" id="numberInput" name="Epsilon" value="40">
+        <input type="submit" id="submit">
+    </form>
+
+    <h3 id ="status"> 0/0 pixels</h3>
+
+    <!--div id="imagePreview"></div-->
+
+    <!--img id="image" style = "width: 700px; height: auto; position: absolute" src="furinaimg.png" alt=""-->
+    <!--img id="image" style = "position: relative" src="furinaimg.png" alt=""-->
+    <!-- Add any scripts or additional content here -->
+    <script src="./index.js"></script>
+
+    <script>
+        function realHiddenImage() {
+            var fileInput = document.getElementById('myFile');
+            //var imagePreview = document.getElementById('imagePreview');
+        
+            // Check if a file is selected
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+        
+                reader.onload = function(e) {
+                    // Create an image element and set its source to the selected file
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.id = "THEimage";
+                    img.style.position = "absolute";
+                    img.style.zIndex = "-10000";
+                    img.style.backgroundColor = "white";
+                    img.style.top = 0
+                    img.style.left = 0
+
+                    //cover the img with a white div
+                    var div = document.createElement('div');
+                    div.style.position = "fixed";
+                    div.style.zIndex = "-9999";
+                    div.style.top = 0
+                    div.style.left = 0
+                    div.style.width = 2000 + "px";
+                    div.style.height = 2000 + "px";
+                    div.style.backgroundColor = "white";
+                    document.body.appendChild(div);
+                    //div.appendChild(img);
+
+
+                    //img.style.visibility = "hidden";
+
+                    
+
+                    
+    
+                    
+        
+                    // Clear previous preview, if any, and append the new image
+                    document.body.appendChild(img);
+                    var THEW = img.offsetWidth;
+                    var THEH = img.offsetHeight;
+                    console.log("width: " + THEW + " height: " + THEH);
+                    var status = document.getElementById("status")
+                    status.innerHTML = 0 + "/" + img.offsetHeight * img.offsetWidth + " pixels"
+                    // img.style.width = "700px";
+                    // img.style.height = "auto";
+                    
+                };
+                
+        
+                // Read the selected file as a data URL
+                reader.readAsDataURL(fileInput.files[0]);
+
+            }
+
+        }
+        function previewImage() {
+            pastimg = document.getElementById("THEimage")
+            if (pastimg != null) {
+                pastimg.remove();
+            }
+            pastimg2 = document.getElementById("PREVimage")
+            if (pastimg2 != null) {
+                pastimg2.remove();
+            }
+
+            //var imagePreview = document.getElementById('imagePreview')
+            
+            realHiddenImage();
+            
+            var fileInput = document.getElementById('myFile');
+            //var imagePreview = document.getElementById('imagePreview');
+        
+            // Check if a file is selected
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+
+        
+                reader.onload = function(e) {
+                    // Create an image element and set its source to the selected file
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.id = "PREVimage";
+                    
+    
+                    
+        
+                    // Clear previous preview, if any, and append the new image
+                    document.body.appendChild(img);
+                    //console.log("width: " + THEW + " height: " + THEH);
+                    img.style.width = "800px";
+                    img.style.height = "auto";
+                };
+        
+                // Read the selected file as a data URL
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+            console.log("BBBBBBBBBB")
+        }
+    </script>
+
+    <!--button id="downloadButton" onclick="downloadImage()">Download Image</button-->
+</body>
+</html>
